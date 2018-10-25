@@ -1,2 +1,4 @@
 .settings
 /.project
+target
+/hitao_member_wx/src/main/resources/application.properties

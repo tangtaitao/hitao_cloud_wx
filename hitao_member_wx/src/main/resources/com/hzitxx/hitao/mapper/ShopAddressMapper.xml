@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.hzitxx.hitao.mapper.ShopAddressMapper">
+	<sql id="*">
+		id,member_id,member_name,province_id,city_id,
+		district_id,full_region,address,tel_number,post_code,is_default
+	</sql>
+
+	<select id="findDefault" resultMap="shopAddressMap" parameterType="map">
+		select
+		<include refid="*"/>
+		from shop_address where member_id=#{memberId} and is_default=1
+	</select>
+
+
+	<resultMap type="com.hzitxx.hitao.entity.ShopAddress"
+		id="shopAddressMap">
+		<id column="id" property="id" />
+		<result column="member_id" property="memberId" />
+		<result column="member_name" property="memberName" />
+		<result column="member_avatar" property="memberAvatar" />
+		<result column="province_id" property="provinceId" />
+		<result column="city_id" property="cityId" />
+		<result column="district_id" property="districtId" />
+		<result column="full_region" property="fullRegion" />
+		<result column="address" property="address" />
+		<result column="tel_number" property="telNumber" />
+		<result column="post_code" property="postCode" />
+		<result column="is_default" property="isDefault" />
+	</resultMap>
+</mapper>

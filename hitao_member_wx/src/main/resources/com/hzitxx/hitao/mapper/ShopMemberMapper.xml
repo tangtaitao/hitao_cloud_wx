@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.hzitxx.hitao.mapper.ShopMemberMapper">
+	<sql id="*">
+		member_id,member_name,member_truename,member_avatar,member_sex,
+		member_birthday,member_password,password_salt,member_email,member_login_num,
+		member_time,member_login_time,member_old_login_time,member_login_ip,
+		member_old_login_ip,member_points,member_mobile,available_predeposit,
+		freeze_predeposit,inform_allow,is_buy,is_allowtalk,member_state,member_credit,
+		member_areaid,member_provinceid,member_areainfo,is_del,is_sorf 
+	</sql>
+	<!-- 查询所有用户信息 -->
+	<select id="findAll" resultMap="shopMemberMap"
+		parameterType="map">
+		select 
+			<include refid="*"/>
+		from shop_member
+		<where>
+			<if test="memberName!=null and memberName!=''">
+				member_name=#{memberName}
+			</if>
+		</where>
+	</select>
+
+	<!-- 增加用户信息 -->
+	<insert id="addmember"
+		parameterType="com.hzitxx.hitao.entity.ShopMember">
+		insert into shop_member(member_name,member_password,member_mobile) 
+		values (#{memberName},md5(#{memberPassword}),#{memberMobile});
+	</insert>
+	<!-- 修改用户信息 -->
+	<update id="updatemember"
+		parameterType="com.hzitxx.hitao.entity.ShopMember">
+		
+	</update>
+	<!-- 删除用户信息 -->
+	<delete id="deletemember"
+		parameterType="com.hzitxx.hitao.entity.ShopMember">
+		delete from shop_member where member_id=#{memberId};
+	</delete>
+	<select id="login" resultMap="shopMemberMap" parameterType="map">
+		select member_id,member_name,member_truename,member_avatar,
+		member_sex,member_birthday,member_email,member_points,
+		member_mobile,available_predeposit,freeze_predeposit,
+		inform_allow,is_buy,is_allowtalk,member_state,member_credit 
+		from shop_member where member_name=#{memberName} and member_password=MD5(#{memberPassword})
+	</select>
+	<select id="findmemberName" resultType="Integer"
+		parameterType="java.lang.String">
+		select count(0) from shop_member where
+		member_name=#{memberName}
+	</select>
+
+	<resultMap type="com.hzitxx.hitao.entity.ShopMember"
+		id="shopMemberMap">
+		<id column="member_id" property="memberId" />
+		<result column="member_name" property="memberName" />
+		<result column="member_truename" property="memberTruename" />
+		<result column="member_avatar" property="memberAvatar" />
+		<result column="member_sex" property="memberSex" />
+		<result column="member_birthday" property="memberBirthday" />
+		<result column="member_password" property="memberPassword" />
+		<result column="password_salt" property="passwordSalt" />
+		<result column="member_email" property="memberEmail" />
+		<result column="member_login_num" property="memberLoginNum" />
+		<result column="member_time" property="memberTime" />
+		<result column="member_login_time" property="memberLoginTime" />
+		<result column="member_old_login_time" property="memberOldLoginTime" />
+		<result column="member_login_ip" property="memberLoginIp" />
+		<result column="member_old_login_ip" property="memberOldLoginIp" />
+		<result column="member_points" property="memberPoints" />
+		<result column="member_mobile" property="memberMobile" />
+		<result column="available_predeposit" property="availablePredeposit" />
+		<result column="freeze_predeposit" property="freezePredeposit" />
+		<result column="inform_allow" property="informAllow" />
+		<result column="is_buy" property="isBuy" />
+		<result column="is_allowtalk" property="isAllowtalk" />
+		<result column="member_state" property="memberState" />
+		<result column="member_credit" property="memberCredit" />
+		<result column="member_areaid" property="memberAreaid" />
+		<result column="member_provinceid" property="memberProvinceid" />
+		<result column="member_areainfo" property="memberAreainfo" />
+		<result column="is_del" property="isDel" />
+		<result column="is_sorf" property="isSorf" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopFavoritesMapper">
+	<!--shop_favorites表中的列 -->
+	<sql id="shopFavoritesBaseColumn">
+		fav_id,
+		goods_id,
+		member_id,
+		fav_type,
+		goods_name,
+		goods_jingle,
+		main_image,
+		fav_time
+	</sql>
+	<!--查询数据 -->
+	<select id="selectShopFavorites" parameterType="map"
+		resultMap="shopFavoritesMap">
+		SELECT
+		<include refid="shopFavoritesBaseColumn" />
+		FROM shop_favorites
+		<include refid="shopFavoritesBaseWhereSql" />
+	</select>
+	<!--基础查询条件 -->
+	<sql id="shopFavoritesBaseWhereSql">
+			<where>
+				<if test="favId !=null">
+					AND fav_id = #{favId}
+				</if>
+				<if test="goodsId !=null">
+					AND goods_id = #{goodsId}
+				</if>
+				<if test="memberId !=null">
+					AND member_id = #{memberId}
+				</if>
+				<if test="favType !=null">
+					AND fav_type = #{favType}
+				</if>
+				<if test="goodsName !=null">
+					AND goods_name = #{goodsName}
+				</if>
+				<if test="goodsJingle !=null">
+					AND goods_jingle = #{goodsJingle}
+				</if>
+				<if test="mainImage !=null">
+					AND main_image = #{mainImage}
+				</if>
+				<if test="favTime !=null">
+					AND fav_time = #{favTime}
+				</if>
+			</where>
+	</sql>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="shopFavoritesMap"
+		type="com.hzitxx.hitao.entity.ShopFavorites">
+		<id column="fav_id" property="favId" />
+		<result column="goods_id" property="goodsId" />
+		<result column="member_id" property="memberId" />
+		<result column="fav_type" property="favType" />
+		<result column="goods_name" property="goodsName" />
+		<result column="goods_jingle" property="goodsJingle" />
+		<result column="main_image" property="mainImage" />
+		<result column="fav_time" property="favTime" />
+	</resultMap>
+</mapper>

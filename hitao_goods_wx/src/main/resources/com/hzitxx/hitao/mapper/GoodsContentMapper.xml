@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.hzitxx.hitao.mapper.GoodsContentMapper">
+	<!--shop_goods_content表中的列 -->
+	<sql id="shopGoodsContentBaseColumn">
+		goods_id,
+		content,
+		created_time,
+		updated_time
+	</sql>
+	<!--查询数据 -->
+	<select id="selectGoodsContent" parameterType="map"
+		resultMap="shopGoodsContentMap">
+		SELECT
+		<include refid="shopGoodsContentBaseColumn" />
+		FROM shop_goods_content
+		<include refid="shopGoodsContentBaseWhereSql" />
+	</select>
+	<!--基础查询条件 -->
+	<sql id="shopGoodsContentBaseWhereSql">
+			<where>
+				<if test="goodsId !=null">
+					AND goods_id = #{goodsId}
+				</if>
+				<if test="content !=null">
+					AND content = #{content}
+				</if>
+				<if test="updatedTime !=null">
+					AND updated_time = #{updatedTime}
+				</if>
+			</where>
+	</sql>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="shopGoodsContentMap"
+		type="com.hzitxx.hitao.utils.GoodsContent">
+		<id column="goods_id" property="goodsId" />
+		<result column="content" property="content" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+</mapper>

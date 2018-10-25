@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.FindGoodsMapper">
+	<!--shop_goods表中的列 -->
+	<sql id="shopGoodsBaseColumn">
+		goods_id,
+		goods_name,
+		goods_jingle,
+		gc_id,
+		brand_id,
+		goods_price,
+		goods_marketprice,
+		goods_serial,
+		goods_click,
+		goods_salenum,
+		goods_collect,
+		goods_spec,
+		goods_storage,
+		main_image,
+		goods_state,
+		goods_verify,
+		areaid_1,
+		areaid_2,
+		color_id,
+		transport_id,
+		goods_freight,
+		goods_vat,
+		goods_commend,
+		evaluation_good_star,
+		evaluation_count,
+		is_del,
+		created_time,
+		updated_time
+	</sql>
+	<!-- 查询shop_goods中的数据 -->
+	<select id="findGoods" resultMap="shopGoodsMap">
+		SELECT
+		<include refid="shopGoodsBaseColumn" />
+		FROM shop_goods
+	</select>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="shopGoodsMap"
+		type="com.hzitxx.hitao.entity.ShopGoods">
+		<id column="goods_id" property="goodsId" />
+		<result column="goods_name" property="goodsName" />
+		<result column="goods_jingle" property="goodsJingle" />
+		<result column="gc_id" property="gcId" />
+		<result column="brand_id" property="brandId" />
+		<result column="goods_price" property="goodsPrice" />
+		<result column="goods_marketprice" property="goodsMarketprice" />
+		<result column="goods_serial" property="goodsSerial" />
+		<result column="goods_click" property="goodsClick" />
+		<result column="goods_salenum" property="goodsSalenum" />
+		<result column="goods_collect" property="goodsCollect" />
+		<result column="goods_spec" property="goodsSpec" />
+		<result column="goods_storage" property="goodsStorage" />
+		<result column="main_image" property="mainImage" />
+		<result column="goods_state" property="goodsState" />
+		<result column="goods_verify" property="goodsVerify" />
+		<result column="areaid_1" property="areaid1" />
+		<result column="areaid_2" property="areaid2" />
+		<result column="color_id" property="colorId" />
+		<result column="transport_id" property="transportId" />
+		<result column="goods_freight" property="goodsFreight" />
+		<result column="goods_vat" property="goodsVat" />
+		<result column="goods_commend" property="goodsCommend" />
+		<result column="evaluation_good_star"
+			property="evaluationGoodStar" />
+		<result column="evaluation_count" property="evaluationCount" />
+		<result column="is_del" property="isDel" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.hzitxx.hitao.mapper.ShopFavoritesCollectionMapper">
+	<!--shop_favorites表中的列 -->
+	<sql id="shopFavoritesBaseColumn">
+		fav_id,
+		goods_id,
+		member_id,
+		fav_type,
+		goods_name,
+		goods_jingle,
+		main_image,
+		fav_time
+	</sql>
+	<!-- 查询商品表的部分信息 -->
+	<select id="selectShopGoods"
+		parameterType="com.hzitxx.hitao.entity.ShopFavorites"
+		resultMap="shopGoodsMap">
+		SELECT goods_name,goods_jingle,main_image
+		FROM shop_goods
+		WHERE goods_id = #{goodsId}
+	</select>
+
+	<!--添加 -->
+	<insert id="addShopFavorites"
+		parameterType="com.hzitxx.hitao.entity.ShopFavorites">
+		insert into shop_favorites
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="favId != null">
+				fav_id,
+			</if>
+			<if test="goodsId != null">
+				goods_id,
+			</if>
+			<if test="memberId != null">
+				member_id,
+			</if>
+			<if test="favType != null">
+				fav_type,
+			</if>
+			<if test="goodsName != null">
+				goods_name,
+			</if>
+			<if test="goodsJingle != null">
+				goods_jingle,
+			</if>
+			<if test="mainImage != null">
+				main_image,
+			</if>
+			<if test="favTime != null">
+				fav_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="favId != null">
+				#{favId},
+			</if>
+			<if test="goodsId != null">
+				#{goodsId},
+			</if>
+			<if test="memberId != null">
+				#{memberId},
+			</if>
+			<if test="favType != null">
+				#{favType},
+			</if>
+			<if test="goodsName != null">
+				#{goodsName},
+			</if>
+			<if test="goodsJingle != null">
+				#{goodsJingle},
+			</if>
+			<if test="mainImage != null">
+				#{mainImage},
+			</if>
+			<if test="favTime != null">
+				#{favTime},
+			</if>
+		</trim>
+	</insert>
+	<!--根据id删除数据 -->
+	<delete id="deleteById" parameterType="com.hzitxx.hitao.entity.ShopFavorites">
+		DELETE FROM shop_favorites
+		WHERE
+		goods_id = #{goodsId}
+		AND member_id = #{memberId}
+		AND fav_type =
+		#{favType}
+	</delete>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="shopGoodsMap"
+		type="com.hzitxx.hitao.entity.ShopGoods">
+		<result column="goods_name" property="goodsName" />
+		<result column="goods_jingle" property="goodsJingle" />
+		<result column="main_image" property="mainImage" />
+	</resultMap>
+</mapper>

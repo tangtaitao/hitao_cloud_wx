@@ -1,4 +1,4 @@
-package hitao_goods_wx;
+package com.hzitxx.hitao;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

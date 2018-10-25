@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopGoodsMapper">
+	<!--shop_goods表中的列 -->
+	<sql id="shopGoodsBaseColumn">
+		goods_id,
+		goods_name,
+		goods_jingle,
+		gc_id,
+		brand_id,
+		goods_price,
+		goods_marketprice,
+		goods_storage,
+		main_image,
+		goods_state,
+		goods_verify,
+		evaluation_good_star,
+		is_del,
+		updated_time
+	</sql>
+	<!-- 查询库存 -->
+	<select id="CheckOut" parameterType="int" resultType="int">
+	SELECT goods_storage FROM shop_goods
+	WHERE
+	goods_id = #{goodsId}
+	</select>
+	<!-- 查询shop_goods中的数据 -->
+	<select id="selectShopGoods" parameterType="map"
+		resultMap="shopGoodsMap">
+		SELECT
+		<include refid="shopGoodsBaseColumn" />
+		FROM shop_goods
+		<include refid="shopGoodsBaseWhereSql" />
+	</select>
+	<!--基础查询条件 -->
+	<sql id="shopGoodsBaseWhereSql">
+		<where>
+			<if test="goodsId !=null">
+				AND goods_id = #{goodsId}
+			</if>
+			<if test="goodsName !=null">
+				AND goods_name = #{goodsName}
+			</if>
+			<if test="goodsJingle !=null">
+				AND goods_jingle = #{goodsJingle}
+			</if>
+			<if test="gcId !=null">
+				AND gc_id = #{gcId}
+			</if>
+			<if test="brandId !=null">
+				AND brand_id = #{brandId}
+			</if>
+			<if test="goodsPrice !=null">
+				AND goods_price = #{goodsPrice}
+			</if>
+			<if test="goodsMarketprice !=null">
+				AND goods_marketprice = #{goodsMarketprice}
+			</if>
+			<if test="goodsStorage !=null">
+				AND goods_storage = #{goodsStorage}
+			</if>
+			<if test="mainImage !=null">
+				AND main_image = #{mainImage}
+			</if>
+			<if test="goodsState !=null">
+				AND goods_state = #{goodsState}
+			</if>
+			<if test="goodsVerify !=null">
+				AND goods_verify = #{goodsVerify}
+			</if>
+			<if test="evaluationGoodStar !=null">
+				AND evaluation_good_star = #{evaluationGoodStar}
+			</if>
+			<if test="isDel !=null">
+				AND is_del = #{isDel}
+			</if>
+			<if test="updatedTime !=null">
+				AND updated_time = #{updatedTime}
+			</if>
+		</where>
+	</sql>
+	<!-- 通用查询映射结果 -->
+	<resultMap id="shopGoodsMap"
+		type="com.hzitxx.hitao.utils.ShopGoods">
+		<id column="goods_id" property="goodsId" />
+		<result column="goods_name" property="goodsName" />
+		<result column="goods_jingle" property="goodsJingle" />
+		<result column="gc_id" property="gcId" />
+		<result column="brand_id" property="brandId" />
+		<result column="goods_price" property="goodsPrice" />
+		<result column="goods_marketprice" property="goodsMarketprice" />
+		<result column="goods_storage" property="goodsStorage" />
+		<result column="main_image" property="mainImage" />
+		<result column="goods_state" property="goodsState" />
+		<result column="goods_verify" property="goodsVerify" />
+		<result column="evaluation_good_star"
+			property="evaluationGoodStar" />
+		<result column="is_del" property="isDel" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+</mapper>
